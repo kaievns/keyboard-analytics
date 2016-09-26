@@ -1,0 +1,16 @@
+{
+  "name": "type-rtc",
+  "version": "1.0.0",
+  "description": "Hand movements tracking thing for analyzing typing efforts\"",
+  "main": "index.js",
+  "dependencies": {
+    "serve": "^1.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "serve src/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nikolay Nemshilov",
+  "license": "ISC"
+}
