@@ -1,8 +1,10 @@
 {
-  "name": "type-rtc",
+  "name": "keyboard-analytics",
   "version": "1.0.0",
   "description": "Hand movements tracking thing for analyzing typing efforts\"",
   "main": "index.js",
+  "private": true,
+  "repository": "https://github.com/MadRabbit/keyboard-analytics",
   "dependencies": {
     "serve": "^1.4.0"
   },
