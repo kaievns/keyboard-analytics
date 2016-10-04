@@ -32,10 +32,20 @@ colors.on('track', event => {
 
 tracking.track(video, colors);
 
-let data = [];
+let data = {};
 
 document.addEventListener("keypress", event => {
-  data.push({key: event.key, left: points.left, right: points.right });
+  const key = event.key;
+
+  data[key] = data[key] || {
+    x1: [], y1: [], x2: [], y2: []
+  };
+
+  data[key].x1.push(~~points.left.x);
+  data[key].y1.push(~~points.left.y);
+  data[key].x2.push(~~points.right.x);
+  data[key].y2.push(~~points.right.y);
+
   console.log(event.key, points.left, points.right);
 });
 
@@ -46,9 +56,9 @@ const startVideoStream = sourceId => {
       video: {
         optional: [
           { sourceId },
-          { width: { max: 640 } },
-          { height: { max: 480 } },
-          { frameRate: { max: 5 } },
+          { width: 640 },
+          { height: 480 },
+          { frameRate: 5 },
           { aspectRation: 1.5 }
         ]
       }
@@ -68,7 +78,7 @@ navigator.mediaDevices.enumerateDevices().then(list => {
 
 
 function downloadData() {
-  const dataStr = JSON.stringify(data, null, 2);
+  const dataStr = JSON.stringify(data);
   const fakeLink = document.createElement('a');
   fakeLink.href = "data:text/json;charset=utf-8," + encodeURIComponent(dataStr);
   fakeLink.download = "data.json";
