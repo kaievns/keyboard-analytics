@@ -12,7 +12,7 @@ let points;
 colors.on('track', event => {
   if (event.data.length === 2) {
     const p1 = rectToPoint(event.data[0]);
-    const p2 = rectToPoint(event.data[0]);
+    const p2 = rectToPoint(event.data[1]);
 
     points = p1.x < p2.x ? { left: p1, right: p2 } : { left: p2, right: p1 };
   }
@@ -37,7 +37,7 @@ let data = [];
 document.addEventListener("keypress", event => {
   data.push({key: event.key, left: points.left, right: points.right });
   console.log(event.key, points.left, points.right);
-})
+});
 
 const startVideoStream = sourceId => {
   navigator.getUserMedia(
@@ -65,3 +65,12 @@ navigator.mediaDevices.enumerateDevices().then(list => {
     }
   }
 });
+
+
+function downloadData() {
+  const dataStr = JSON.stringify(data, null, 2);
+  const fakeLink = document.createElement('a');
+  fakeLink.href = "data:text/json;charset=utf-8," + encodeURIComponent(dataStr);
+  fakeLink.download = "data.json";
+  fakeLink.click();
+}

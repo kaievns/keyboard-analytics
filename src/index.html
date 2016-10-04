@@ -7,17 +7,26 @@
     <style>
       video, canvas {
         position: absolute;
-        border: 1px solid #eee;
       }
       #image-container {
         position: relative;
         transform-origin: left top;
       }
+      .tools {
+        font-size: 1rem;
+        float: right;
+        margin-top: 0.5rem;
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Oh, hi</h1>
+      <h1>
+        Oh, hi
+        <div class="tools">
+          <button onclick="downloadData()">downlaod</button>
+        </div>
+      </h1>
 
       <div id="image-container">
         <video autoplay id="video" width="640" height="480"></video>
