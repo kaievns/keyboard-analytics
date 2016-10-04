@@ -9,14 +9,20 @@
         position: absolute;
         border: 1px solid #eee;
       }
+      #image-container {
+        position: relative;
+        transform-origin: left top;
+      }
     </style>
   </head>
   <body>
     <div class="container">
       <h1>Oh, hi</h1>
 
-      <video autoplay id="video" width="600" height="450"></video>
-      <canvas id="canvas" width="600" height="450"></canvas>
+      <div id="image-container">
+        <video autoplay id="video" width="640" height="480"></video>
+        <canvas id="canvas"        width="640" height="480"></canvas>
+      </div>
     </div>
   </body>
   <script src="./tracking-min.js"></script>

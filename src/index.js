@@ -2,12 +2,6 @@ const video = document.querySelector('#video');
 const canvas = document.querySelector('#canvas');
 const context = canvas.getContext('2d');
 
-navigator.getUserMedia(
-  { video: true },
-  stream => video.src = URL.createObjectURL(stream),
-  error => console.log('failed', error)
-);
-
 const colors = new tracking.ColorTracker('yellow');
 
 colors.on('track', event => {
@@ -26,3 +20,30 @@ colors.on('track', event => {
 });
 
 tracking.track(video, colors);
+
+const startVideoStream = sourceId => {
+  navigator.getUserMedia(
+    {
+      audio: false,
+      video: {
+        optional: [
+          { sourceId },
+          { width: { max: 640 } },
+          { height: { max: 480 } },
+          { frameRate: { max: 5 } },
+          { aspectRation: 1.5 }
+        ]
+      }
+    },
+    stream => video.src = URL.createObjectURL(stream),
+    error => console.log('failed', error)
+  );
+};
+
+navigator.mediaDevices.enumerateDevices().then(list => {
+  for (const device of list) {
+    if (device.kind === "videoinput" && device.label.includes("USB")) {
+      startVideoStream(device.deviceId);
+    }
+  }
+});
