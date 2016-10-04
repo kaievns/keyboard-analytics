@@ -3,8 +3,19 @@ const canvas = document.querySelector('#canvas');
 const context = canvas.getContext('2d');
 
 const colors = new tracking.ColorTracker('yellow');
+const rectToPoint = rect => ({
+  x: rect.x + rect.width / 2,
+  y: rect.y + rect.height / 2
+})
+let points;
 
 colors.on('track', event => {
+  if (event.data.length === 2) {
+    const p1 = rectToPoint(event.data[0]);
+    const p2 = rectToPoint(event.data[0]);
+
+    points = p1.x < p2.x ? { left: p1, right: p2 } : { left: p2, right: p1 };
+  }
   context.clearRect(0, 0, canvas.width, canvas.height);
 
   for (let i = 0; i < event.data.length; i++) {
@@ -20,6 +31,13 @@ colors.on('track', event => {
 });
 
 tracking.track(video, colors);
+
+let data = [];
+
+document.addEventListener("keypress", event => {
+  data.push({key: event.key, left: points.left, right: points.right });
+  console.log(event.key, points.left, points.right);
+})
 
 const startVideoStream = sourceId => {
   navigator.getUserMedia(
