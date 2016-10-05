@@ -2,7 +2,7 @@ const video = document.querySelector('#video');
 const canvas = document.querySelector('#canvas');
 const context = canvas.getContext('2d');
 
-const colors = new tracking.ColorTracker('yellow');
+const colors = new tracking.ColorTracker('magenta');
 const rectToPoint = rect => ({
   x: rect.x + rect.width / 2,
   y: rect.y + rect.height / 2
@@ -58,7 +58,7 @@ const startVideoStream = sourceId => {
           { sourceId },
           { width: 640 },
           { height: 480 },
-          { frameRate: 5 },
+          { frameRate: 10 },
           { aspectRation: 1.5 }
         ]
       }
