@@ -11,7 +11,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "serve src/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/index"
   },
   "author": "Nikolay Nemshilov",
   "license": "ISC"
