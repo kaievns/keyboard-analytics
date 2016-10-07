@@ -3,7 +3,7 @@ const data = require('../data');
 const avg = entries =>
   ~~ (entries.reduce((sum, item) => sum + item, 0) / entries.length);
 
-const distance = vector => ~~Math.sqrt(vector.x * vector.x + vector.y * vector.y);
+const distance = vector => Math.round(Math.sqrt(vector.x * vector.x + vector.y * vector.y));
 
 const avgPosition = key => {
   const [x, y] = LEFT_HAND_SYMBOLS.includes(key) ? ['x1', 'y1'] : ['x2', 'y2'];
@@ -14,8 +14,8 @@ const avgPosition = key => {
 }
 
 const diffPosition = (pos1, pos2) => ({
-  x: Math.abs(pos1.x - pos2.x),
-  y: Math.abs(pos1.y - pos2.y)
+  x: toCapSizes(Math.abs(pos1.x - pos2.x)),
+  y: toCapSizes(Math.abs(pos1.y - pos2.y))
 });
 
 const handPositionWhenPressed = (letters=[], x='x1', y='y1') => {
@@ -43,7 +43,7 @@ const RIGHT_HAND_POS = handPositionWhenPressed(LEFT_HAND_SYMBOLS, 'x2', 'y2');
 const HAND_DIST_IN_KEY_CAPS = 8;
 const KEY_CAPS_DENOMINATOR = (RIGHT_HAND_POS.x - LEFT_HAND_POS.x) / HAND_DIST_IN_KEY_CAPS;
 
-const toCaps = dist => parseFloat((dist / KEY_CAPS_DENOMINATOR).toFixed(2));
+const toCapSizes = dist => parseFloat((dist / KEY_CAPS_DENOMINATOR * 10).toFixed(1));
 
 const NORMAL_LETTERS_DATA = Object.keys(data).reduce((list, key) => {
   if (!SHIFTED_LETTERS.includes(key)) {
@@ -51,9 +51,8 @@ const NORMAL_LETTERS_DATA = Object.keys(data).reduce((list, key) => {
     const position = avgPosition(key);
     const diff = diffPosition(position, anchor);
     const dist = distance(diff);
-    const caps = toCaps(dist);
 
-    list.push({ key, position, diff, dist, caps });
+    list.push({ key, position, diff, dist });
   }
 
   return list;
@@ -71,17 +70,14 @@ NORMAL_LETTERS_DATA.forEach(entry => {
     `"${entry.key}"`,
     '  |  pos:', entry.position,
     '  |  diff:', entry.diff,
-    '  |  dist:', entry.dist,
-    '  |  caps:', entry.caps
+    '  |  dist:', entry.dist
   );
 });
 
 console.log('');
 console.log('Left shift pos:', LEFT_SHIFT_POS,
   diffPosition(LEFT_SHIFT_POS, LEFT_HAND_POS),
-  distance(diffPosition(LEFT_SHIFT_POS, LEFT_HAND_POS)),
-  toCaps(distance(diffPosition(LEFT_SHIFT_POS, LEFT_HAND_POS))));
+  distance(diffPosition(LEFT_SHIFT_POS, LEFT_HAND_POS)));
 console.log('Right shift pos: ', RIGHT_SHIFT_POS,
   diffPosition(RIGHT_SHIFT_POS, RIGHT_HAND_POS),
-  distance(diffPosition(RIGHT_SHIFT_POS, RIGHT_HAND_POS)),
-  toCaps(distance(diffPosition(RIGHT_SHIFT_POS, RIGHT_HAND_POS))));
+  distance(diffPosition(RIGHT_SHIFT_POS, RIGHT_HAND_POS)));
