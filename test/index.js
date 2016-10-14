@@ -81,3 +81,19 @@ console.log('Left shift pos:', LEFT_SHIFT_POS,
 console.log('Right shift pos: ', RIGHT_SHIFT_POS,
   diffPosition(RIGHT_SHIFT_POS, RIGHT_HAND_POS),
   distance(diffPosition(RIGHT_SHIFT_POS, RIGHT_HAND_POS)));
+
+
+let keyboard = "\n"+
+" \` 1 2 3 4 5 6 7 8 9 0 - = \n"+
+"    q w e r t y u i o p [ ] \\ \n"+
+"    a s d f g h j k l ; ' Enter \n"+
+"     z x c v b n m , . / "
+;
+
+const zerofy = val => val > 9 ? val : `0${val}`;
+
+NORMAL_LETTERS_DATA.forEach(entry => {
+  keyboard = keyboard.replace(` ${entry.key} `, ` ${zerofy(entry.dist)} `);
+});
+
+console.log(keyboard);
