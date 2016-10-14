@@ -11,11 +11,11 @@ As the result of this experiment I managed to calculate the following map of
 hand movements (in distances normalized to a key cap size):
 
 ```
-17 14 08 08 14 17 28 24 12 10 17 16 19
-   06 02 03 07 12 17 10 05 03 07 08 10 18
-   02 01 01 02 08 07 02 01 01 01 05 11
-     06 09 11 09 11 03 02 05 06 04
-05               00                    15
+17 14 08 08 13 16 23 19 09 08 07 15 17
+   06 02 01 06 11 14 09 01 01 07 09 13 18
+   00 00 00 00 07 07 00 00 00 00 05 11
+     07 08 10 06 10 04 02 05 05 03
+05               00                 11
 ```
 
 ## Usage
